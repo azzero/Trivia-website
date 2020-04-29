@@ -1,6 +1,6 @@
 # Full Stack API Final Project
 
-azzeddine
+.
 
 ## Full Stack Trivia
 
