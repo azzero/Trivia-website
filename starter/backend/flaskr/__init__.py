@@ -48,7 +48,7 @@ def create_app(test_config=None):
       categories = Category.query.all()
       return jsonify({
         'success': True,
-        "categories": [ category.format()  for category in categories],
+        "categories": {categorie.id:categorie.type for categorie in categories},
         "total_categories": len(categories)
 
     })
@@ -72,12 +72,29 @@ def create_app(test_config=None):
     @app.route("/questions/<int:question_id>", methods=["DELETE"])
     def delete_question(question_id):
       try:
-
         question=Question.query.filter(Question.id==question_id).one_or_none()
         if (question is None ):
           abort(404)
         else:
           question.delete()
+      except:
+        abort(422)
+  #TEST: When you click the trash icon next to a question, the question will be removed This removal will persist in the database and when you refresh the page. 
+  #done
+  #todo: Create an endpoint to POST a new question, which will require the question and answer text, category, and difficulty score.
+    @app.route("/questions", methods=["POST"])
+    def add_question():
+      try:
+        body=request.get_json()
+        question_value=body.get("question",None)
+        answer_value=body.get("answer",None)
+        difficulty_value=body.get("difficulty",None)
+        category_value=body.get("category",None)
+        question=Question(question=question_value,answer=answer_value,difficulty=difficulty_value,category=category_value)
+        question.insert()
+        return jsonify({
+          "success":True
+        })
       except:
         abort(422)
 
@@ -97,22 +114,13 @@ def create_app(test_config=None):
 
   
 
-'''
 
-  TEST: When you click the trash icon next to a question, the question will be removed.
-  This removal will persist in the database and when you refresh the page. 
-  '''
+  
 
-'''
-  @TODO: 
-  Create an endpoint to POST a new question, 
-  which will require the question and answer text, 
-  category, and difficulty score.
 
-  TEST: When you submit a question on the "Add" tab, 
-  the form will clear and the question will appear at the end of the last page
-  of the questions list in the "List" tab.  
-  '''
+
+  #TEST: When you submit a question on the "Add" tab, the form will clear and the question will appear at the end of the last pageof the questions list in the "List" tab.  
+  
 
 '''
   @TODO: 
