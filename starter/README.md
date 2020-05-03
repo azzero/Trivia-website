@@ -1,5 +1,6 @@
-Getting Started:
-Pre-requisites and Local Development:
+# Getting Started:
+
+## Pre-requisites and Local Development:
 
 Developers using this project should already have Python3, pip and node installed on their local machines.
 
@@ -8,9 +9,11 @@ From the backend folder run pip install requirements.txt. All required packages 
 
 To run the application run the following commands:
 
+```bash
 export FLASK_APP=flaskr
 export FLASK_ENV=development
 flask run
+```
 
 These commands put the application in development and directs our application to use the **init**.py file in our flaskr folder. Working in development mode shows an interactive debugger in the console and restarts the server whenever changes are made. If running locally on Windows, look for the commands in the Flask documentation.
 
@@ -67,29 +70,38 @@ All tests are kept in that file and should be maintained as updates are made to 
 
 ## API :
 
-GET /categories :
+### GET /categories :
 
-- General:
-  Returns an object that contains categories object, success value, and total number of categories
-- Sample: curl http://127.0.0.1:5000/categories
-  {
-  "categories": {
-  "1": "Science",
-  "2": "Art",
-  "3": "Geography",
-  "4": "History",
-  "5": "Entertainment",
-  "6": "Sports"
-  },
-  "success": true,
-  "total_categories": 6
-  }
+#### - General:
 
-GET /questions :
-General:
+Returns an object that contains categories object, success value, and total number of categories
+
+#### - Sample: curl http://127.0.0.1:5000/categories
+
+{
+"categories": {
+"1": "Science",
+"2": "Art",
+"3": "Geography",
+"4": "History",
+"5": "Entertainment",
+"6": "Sports"
+},
+"success": true,
+"total_categories": 6
+}
+
+### GET /questions :
+
+#### - General:
+
 Returns an object that contains list of questions , success value,categories,current category and total number of questions
 Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1.
-Sample: curl http://127.0.0.1:5000/questions
+
+#### - Sample:
+
+`curl http://127.0.0.1:5000/questions`
+`
 {
 "categories": {
 "1": "Science",
@@ -176,10 +188,15 @@ Sample: curl http://127.0.0.1:5000/questions
 "total_questions": 24
 }
 
-POST /questions :
-General:
+### POST /questions :
+
+#### -General:
+
 Creates a new question using the submitted question, answer , difficulty and category. Returns success value,
-curl -X POST -d '{"question":"what is the capital of morocco " , "answer":" rabat ","difficulty":2,"category":2}' -H "Content-Type:application/json" http://127.0.0.1:5000/questions;
+
+#### Sample :
+
+`curl -X POST -d '{"question":"what is the capital of morocco " , "answer":" rabat ","difficulty":2,"category":2}' -H "Content-Type:application/json" http://127.0.0.1:5000/questions;`
 
 {
 "success": true
@@ -229,11 +246,15 @@ searching for some questions based on search term , Returns an object of questio
 "total_questions": 26
 }
 
-GET /categories/{categorie_id}/questions:
-General :
+### GET /categories/{categorie_id}/questions:
+
+#### -General :
+
 get questions by category , Returns an object that contains questions , success value, total number of questions and current category
 
-- Sample : curl http://127.0.0.1:5000/categories/1/questions
+#### - Sample :
+
+`curl http://127.0.0.1:5000/categories/1/questions`
 
 {
 "current_category": "1",
@@ -271,10 +292,14 @@ get questions by category , Returns an object that contains questions , success 
 "total_questions": 4
 }
 
-POST /quizzes :
-General :
+### - POST /quizzes :
+
+#### -General :
+
 get questions to play the quiz,Returns and object that contains the next question and success value .
-Sample : curl -X POST -d '{"previous_questions":[5] , "quiz_category":{"id":1}}' -H "Content-Type:application/json" http://127.0.0.1:5000/quizzes
+
+#### - Sample : curl -X POST -d '{"previous_questions":[5] , "quiz_category":{"id":1}}' -H "Content-Type:application/json" http://127.0.0.1:5000/quizzes
+
 {
 "question": {
 "answer": "Alexander Fleming",
