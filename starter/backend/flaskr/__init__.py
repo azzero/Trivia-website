@@ -45,13 +45,16 @@ def create_app(test_config=None):
 
     @app.route("/categories")
     def all_categories():
-      categories = Category.query.all()
-      return jsonify({
-        'success': True,
-        "categories": {categorie.id:categorie.type for categorie in categories},
-        "total_categories": len(categories)
+      try:
+          categories = Category.query.all()
+          return jsonify({
+            'success': True,
+            "categories": {categorie.id:categorie.type for categorie in categories},
+            "total_categories": len(categories)
 
-    })
+        })
+      except:
+          abort(422)
   #TODO: Create an endpoint to handle GET requests for questions, including pagination (every 10 questions). This endpoint should return a list of questions, number of total questions, current category, categories. 
     @app.route("/questions")
     def all_question():
@@ -77,6 +80,9 @@ def create_app(test_config=None):
           abort(404)
         else:
           question.delete()
+          return jsonify({
+            "success":True
+          })
       except:
         abort(422)
   #TEST: When you click the trash icon next to a question, the question will be removed This removal will persist in the database and when you refresh the page. 
@@ -112,7 +118,7 @@ def create_app(test_config=None):
           if len(current_questions)==0:
             abort(404)
           return jsonify({
-            'success':True,
+            "success":True,
             "questions":current_questions,
             "total_questions":len(Question.query.all()),
             "categories": {categorie.id:categorie.type for categorie in categories},
@@ -128,9 +134,11 @@ def create_app(test_config=None):
       try:
         selections=Question.query.filter(Question.category==category_id).all()
         current_questions=paginate_questions(request,selections)
+        print(len(current_questions))
         if len(current_questions)==0:
           abort(404)
         return jsonify({
+          "success":True,
           "questions":current_questions,
           "total_questions":len(selections),
           "current_category":category_id
@@ -165,7 +173,8 @@ def create_app(test_config=None):
         else:
           question=None
         return jsonify({
-        "question":question,    
+          "success":True,
+        "question":question 
     })
       except:
         abort(422)
