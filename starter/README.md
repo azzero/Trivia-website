@@ -202,19 +202,28 @@ Creates a new question using the submitted question, answer , difficulty and cat
 "success": true
 }
 
-DELETE /questions/{question_id}
-General:
+### DELETE /questions/{question_id}
+
+#### -General:
+
 Deletes the question of the given ID if it exists. Returns success value
-curl -X DELETE http://127.0.0.1:5000/questions/32
+
+#### -Sample :
+
+`curl -X DELETE http://127.0.0.1:5000/questions/32`
 {
 "success": true
 }
 
-POST /question/search:
-General:
+### POST /question/search:
+
+#### -General:
+
 searching for some questions based on search term , Returns an object of questions,success value, total number of questions , categories and current category
 
-- Sample : curl -X POST -d '{"searchTerm":"title"}' -H "Content-Type:application/json" http://127.0.0.1:5000/questions/search
+#### - Sample :
+
+`curl -X POST -d '{"searchTerm":"title"}' -H "Content-Type:application/json" http://127.0.0.1:5000/questions/search`
 
 {
 "categories": {
@@ -298,7 +307,9 @@ get questions by category , Returns an object that contains questions , success 
 
 get questions to play the quiz,Returns and object that contains the next question and success value .
 
-#### - Sample : curl -X POST -d '{"previous_questions":[5] , "quiz_category":{"id":1}}' -H "Content-Type:application/json" http://127.0.0.1:5000/quizzes
+#### - Sample :
+
+`curl -X POST -d '{"previous_questions":[5] , "quiz_category":{"id":1}}' -H "Content-Type:application/json" http://127.0.0.1:5000/quizzes`
 
 {
 "question": {
